@@ -1,0 +1,49 @@
+---
+import { SCREENER_FEATURES } from '../consts';
+
+const FEATURE_ICONS = [
+  '<rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  '<path d="M4 19V5m0 14h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+];
+---
+<section class="sec screener" id="screener">
+  <div class="wrap screener-inner">
+    <div>
+      <span class="eyebrow">Wellness Screener</span>
+      <h2>A simple screen. A clearer picture of student wellbeing.</h2>
+      <p class="lead">Students complete a short, guided wellness screener. Counselors get consistent, actionable results — and a defined path to follow up.</p>
+      <div class="feat-list">
+        {SCREENER_FEATURES.map((f, i) => (
+          <div class="feat">
+            <div class="fi"><svg viewBox="0 0 24 24" fill="none" set:html={FEATURE_ICONS[i]} /></div>
+            <div><h4>{f.title}</h4><p>{f.body}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="shot-stack">
+      <div class="shot desktop"><div class="lbl">Screener dashboard<br /><small>screenshot placeholder</small></div></div>
+      <div class="shot phone"><div class="lbl">Mobile<br />screener<br /><small>screenshot</small></div></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .screener { background: linear-gradient(180deg, transparent, rgba(255,255,255,0.6)); }
+  .screener-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  h2 { font-size: clamp(28px, 3.4vw, 40px); margin: 14px 0; line-height: 1.1; color: var(--navy); }
+  .lead { color: var(--muted); font-size: 17px; }
+  .feat-list { display: grid; gap: 18px; margin-top: 26px; }
+  .feat { display: flex; gap: 16px; }
+  .fi { width: 46px; height: 46px; border-radius: 14px; flex: none; display: grid; place-items: center; background: linear-gradient(135deg, rgba(63,134,238,0.16), rgba(143,194,245,0.24)); color: var(--blue-2); }
+  .feat h4 { font-family: Poppins; font-size: 16.5px; margin-bottom: 2px; color: var(--navy); }
+  .feat p { color: var(--muted); font-size: 14.5px; }
+
+  .shot-stack { position: relative; min-height: 420px; }
+  .shot { position: absolute; border-radius: 18px; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 30px 60px -25px rgba(8,27,52,0.5); overflow: hidden; }
+  .shot.desktop { width: 78%; height: 300px; left: 0; top: 20px; background: linear-gradient(150deg, var(--navy-2), var(--blue-2)); }
+  .shot.phone { width: 150px; height: 310px; right: 4%; top: 70px; border-radius: 26px; background: linear-gradient(150deg, var(--blue), var(--navy)); }
+  .shot .lbl { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: rgba(255,255,255,0.6); font-size: 13px; background: radial-gradient(400px 200px at 30% 0%, rgba(143,194,245,0.4), transparent); }
+  @media (max-width: 900px) { .screener-inner { grid-template-columns: 1fr; } .shot-stack { min-height: 360px; } }
+</style>

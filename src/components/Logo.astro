@@ -1,0 +1,64 @@
+---
+/**
+ * Fidelity Healthcare Group logo.
+ * `variant`: "full" (shield + wordmark) or "mark" (shield only).
+ * `light`: set true on dark backgrounds to render the wordmark in white.
+ *
+ * NOTE: This is a faithful SVG recreation of the shield emblem. To use the
+ * exact brand artwork, drop `fidelity-logo.svg` into /public and swap the
+ * <svg> below for <img src="/fidelity-logo.svg" ... />.
+ */
+import { LOGO } from '../consts';
+
+interface Props {
+  variant?: 'full' | 'mark';
+  light?: boolean;
+  class?: string;
+}
+const { variant = 'full', light = false, class: className = '' } = Astro.props;
+
+// Resolve the official artwork when enabled (falls back gracefully).
+const base = import.meta.env.BASE_URL;
+const file = variant === 'mark'
+  ? (LOGO.mark || LOGO.src)
+  : (light && LOGO.srcLight ? LOGO.srcLight : LOGO.src);
+const imgSrc = base + file;
+---
+<a href={base} class:list={['logo', className, { light }]} aria-label="Fidelity Healthcare Group — home">
+  {LOGO.useImage ? (
+    <img class:list={['logo-img', { knockout: light }]} src={imgSrc} alt="Fidelity Healthcare Group" />
+  ) : (
+    <>
+      <svg class="logo-mark" viewBox="0 0 200 224" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M100 6 C58 6 28 12 21 18 C15 23 13 30 13 62 L13 118 C13 168 55 200 100 218 C145 200 187 168 187 118 L187 62 C187 30 185 23 179 18 C172 12 142 6 100 6 Z" fill="#3F86EE"/>
+        <path d="M100 20 C64 20 37 25 31 30 C27 33 25 39 25 64 L25 116 C25 158 60 186 100 202 C140 186 175 158 175 116 L175 64 C175 39 173 33 169 30 C163 25 136 20 100 20 Z" fill="#C6DFF6" stroke="#ffffff" stroke-width="6"/>
+        <path d="M86 56 L168 56 L162 84 L114 84 L110 98 L136 98 L131 122 L105 122 L94 168 L60 168 Z" fill="#16305C" stroke="#ffffff" stroke-width="4.5" stroke-linejoin="round"/>
+      </svg>
+      {variant === 'full' && (
+        <span class="logo-word">
+          <span class="logo-title">FIDELITY</span>
+          <span class="logo-sub">HEALTHCARE GROUP</span>
+        </span>
+      )}
+    </>
+  )}
+</a>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-mark { width: 40px; height: auto; flex: none; filter: drop-shadow(0 4px 10px rgba(14, 42, 78, 0.25)); }
+  .logo-img { height: 46px; width: auto; display: block; }
+  /* white knockout for dark backgrounds (footer) */
+  .logo-img.knockout { filter: brightness(0) invert(1); }
+  .logo-word { display: flex; flex-direction: column; line-height: 1; }
+  .logo-title {
+    font-family: Poppins, sans-serif; font-weight: 700; font-style: italic;
+    font-size: 22px; letter-spacing: 0.01em; color: var(--navy);
+  }
+  .logo-sub {
+    font-family: Poppins, sans-serif; font-weight: 600; font-size: 9px;
+    letter-spacing: 0.34em; color: var(--blue-2); margin-top: 3px; padding-left: 2px;
+  }
+  .logo.light .logo-title { color: #fff; }
+  .logo.light .logo-sub { color: var(--powder); }
+</style>

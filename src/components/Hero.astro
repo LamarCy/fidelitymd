@@ -1,0 +1,91 @@
+---
+import { SITE } from '../consts';
+---
+<header class="hero">
+  <!-- LEFT: navy panel -->
+  <div class="hero-l">
+    <div class="hero-copy">
+      <span class="eyebrow on-dark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2-6 4 12 2-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {SITE.tagline}
+      </span>
+      <h1>Two things<br />done right:<br /><span class="hl">bodies &amp; minds.</span></h1>
+      <p>
+        {SITE.name} delivers sports physicals and mental health &amp; wellness
+        support directly to schools and communities — nothing more, nothing
+        less, done exceptionally well.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-glass"><span class="btn-label">Contact us for more information →</span></a>
+        <a href={SITE.phoneHref} class="phone-pill" style="color:#fff">
+          <svg viewBox="0 0 24 24" fill="none" style="color:var(--sky)"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          {SITE.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: royal-blue panel with glass snapshot -->
+  <div class="hero-r">
+    <div class="split-card glass">
+      <div class="tag">Wellness snapshot</div>
+      <h3>Students thriving</h3>
+      <div class="ring"><b>82%</b></div>
+      <div class="split-row">
+        <div class="mini"><span>Physicals</span><b>1,240</b></div>
+        <div class="mini"><span>Screeners</span><b>2,980</b></div>
+        <div class="mini"><span>Follow-up</span><b>96%</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
+  .hero-l {
+    display: flex; align-items: center; padding: 160px 6% 80px; color: #fff;
+    background:
+      radial-gradient(700px 500px at 20% 12%, rgba(63, 134, 238, 0.28), transparent 60%),
+      linear-gradient(160deg, var(--navy-deep), var(--navy) 60%, var(--navy-2));
+  }
+  .hero-r {
+    display: flex; align-items: center; justify-content: center; padding: 160px 5% 80px;
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(600px 520px at 78% 24%, rgba(143, 194, 245, 0.5), transparent 60%),
+      linear-gradient(160deg, var(--blue-2), var(--blue));
+  }
+  /* warm flare bleeding across the seam */
+  .hero-r::before {
+    content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%; left: -140px; top: 30%;
+    background: radial-gradient(circle, rgba(251, 122, 90, 0.5), transparent 65%);
+    filter: blur(30px); mix-blend-mode: screen; animation: flareDrift 9s ease-in-out infinite alternate;
+  }
+  .hero-copy { max-width: 520px; position: relative; z-index: 2; }
+  h1 { font-size: clamp(38px, 3.8vw, 56px); line-height: 1.05; font-weight: 700; margin: 18px 0 20px; }
+  h1 .hl { background: linear-gradient(120deg, var(--sky), var(--powder)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero-copy p { font-size: 18px; color: rgba(255, 255, 255, 0.84); max-width: 470px; margin-bottom: 32px; }
+  .hero-actions { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+
+  .split-card { width: 100%; max-width: 420px; border-radius: 26px; padding: 28px; color: #fff; z-index: 2; }
+  .tag { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--powder); font-weight: 600; }
+  .split-card h3 { font-family: Poppins; font-size: 24px; margin: 8px 0 18px; color: #fff; }
+  .ring {
+    width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 20px;
+    display: grid; place-items: center; position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 70%);
+  }
+  .ring::before { content: ""; position: absolute; inset: -12px; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, 0.4); }
+  .ring b { font-family: Poppins; font-size: 38px; color: #fff; }
+  .split-row { display: flex; gap: 10px; }
+  .mini { flex: 1; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 12px; }
+  .mini span { font-size: 11px; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; letter-spacing: 0.06em; }
+  .mini b { font-family: Poppins; font-size: 20px; display: block; margin-top: 2px; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-l { padding-top: 150px; }
+    .hero-r { padding: 40px 8% 80px; }
+  }
+</style>

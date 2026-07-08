@@ -1,0 +1,43 @@
+---
+import { SITE } from '../consts';
+---
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <span class="eyebrow on-dark">Let's Talk</span>
+      <h2>Bring Fidelity to your school</h2>
+      <p>
+        Ready to support your students' bodies and minds? Contact us for more
+        information about sports physicals and our mental health &amp; wellness
+        framework.
+      </p>
+      <a href={SITE.phoneHref} class="bigphone">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        {SITE.phone}
+      </a>
+      <div class="cta-row">
+        <a href={`mailto:${SITE.email}`} class="btn btn-glass"><span class="btn-label">Contact us for more information →</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-card {
+    position: relative; overflow: hidden; max-width: 920px; margin: 0 auto;
+    border-radius: 30px; padding: 60px; color: #fff; text-align: center;
+    background:
+      radial-gradient(700px 320px at 88% -20%, rgba(255,224,186,0.4), transparent 60%),
+      linear-gradient(120deg, var(--navy-deep) 0%, var(--navy-2) 48%, var(--blue) 100%);
+    box-shadow: var(--shadow);
+  }
+  .contact-card::before {
+    content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%; top: -160px; right: -110px;
+    background: radial-gradient(circle, rgba(143,194,245,0.5), transparent 62%);
+    filter: blur(20px); animation: flareDrift 8s ease-in-out infinite alternate;
+  }
+  .contact-card > * { position: relative; z-index: 1; }
+  h2 { font-size: clamp(28px, 3.4vw, 40px); margin-bottom: 14px; }
+  .contact-card p { color: rgba(255,255,255,0.86); max-width: 520px; margin: 0 auto 26px; font-size: 17px; }
+  .cta-row { margin-top: 24px; display: flex; justify-content: center; }
+</style>

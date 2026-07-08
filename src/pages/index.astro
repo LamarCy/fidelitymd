@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Screener from '../components/Screener.astro';
+import Founders from '../components/Founders.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../consts';
+---
+<BaseLayout title={`${SITE.name} — ${SITE.tagline}`}>
+  <Nav />
+  <main>
+    <Hero />
+    <Services />
+    <Screener />
+    <Founders />
+    <Testimonials />
+    <Faq />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>

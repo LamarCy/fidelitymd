@@ -1,0 +1,67 @@
+---
+import { SERVICES } from '../consts';
+
+const ICONS: Record<string, string> = {
+  physicals: '<path d="M3 12h4l2-6 4 12 2-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  wellness: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3 12h3l1.5-3 2 5 1.5-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+};
+---
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Our Purpose</span>
+      <h2>In-Community Services</h2>
+      <p>Two focused services, delivered where students learn and play.</p>
+    </div>
+    <div class="svc-grid">
+      {SERVICES.map((s) => (
+        <article class={`svc ${s.tone}`}>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" set:html={ICONS[s.key]} /></div>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+          <ul>
+            {s.points.map((pt) => (
+              <li class="checkline">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {pt}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .svc {
+    position: relative; overflow: hidden; padding: 40px 36px; border-radius: var(--r);
+    color: var(--ink); transition: transform 0.3s ease;
+    -webkit-backdrop-filter: blur(var(--fog-blur)) saturate(135%); backdrop-filter: blur(var(--fog-blur)) saturate(135%);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 16px 44px -26px rgba(8,27,52,0.24);
+  }
+  .svc:hover { transform: translateY(-6px); }
+  /* duotone preserved as a soft colour glow within the fog */
+  .svc.navy { background: radial-gradient(560px 300px at 88% -10%, rgba(14,42,78,0.2), transparent 62%), rgba(255,255,255,0.32); }
+  .svc.blue { background: radial-gradient(560px 300px at 88% -10%, rgba(63,134,238,0.26), transparent 62%), rgba(255,255,255,0.32); }
+  /* travelling light across the card */
+  .svc::after {
+    content: ""; position: absolute; top: -60%; left: -40%; width: 55%; height: 220%;
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-16deg); animation: glassSweep 11s ease-in-out infinite; pointer-events: none;
+  }
+  .svc.blue::after { animation-delay: 3s; }
+  .ic { width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center; background: rgba(63,134,238,0.12); border: 1px solid rgba(63,134,238,0.22); margin-bottom: 22px; position: relative; z-index: 1; }
+  .svc.navy .ic { background: rgba(14,42,78,0.1); border-color: rgba(14,42,78,0.2); }
+  .ic svg { width: 30px; height: 30px; color: var(--blue-2); }
+  .svc.navy .ic svg { color: var(--navy); }
+  .svc h3 { font-size: 22px; margin-bottom: 12px; color: var(--navy); position: relative; z-index: 1; }
+  .svc p { font-size: 15.5px; margin-bottom: 20px; color: var(--muted); position: relative; z-index: 1; }
+  .svc ul { list-style: none; display: grid; gap: 9px; position: relative; z-index: 1; }
+  .svc li { color: var(--navy); }
+  .svc li svg { color: var(--blue-2); }
+  .svc.navy li svg { color: var(--navy); }
+  @media (max-width: 900px) { .svc-grid { grid-template-columns: 1fr; } }
+</style>

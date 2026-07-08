@@ -1,0 +1,38 @@
+---
+import { TESTIMONIALS } from '../consts';
+---
+<section class="sec tst" id="testimonials">
+  <div class="wrap">
+    <div class="sec-head on-dark">
+      <span class="eyebrow on-dark">Trusted in Schools</span>
+      <h2>What our community says</h2>
+    </div>
+    <div class="tst-grid">
+      {TESTIMONIALS.map((t) => (
+        <figure class="quote glass">
+          <span class="qm">“</span>
+          <blockquote>{t.quote}</blockquote>
+          <figcaption class="who">
+            <div class="av">{t.initials}</div>
+            <div><b>{t.name}</b>{t.detail && <span>{t.detail}</span>}</div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tst { background: linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 50%, var(--blue-2) 100%); }
+  .tst-grid { max-width: 1000px; margin: 0 auto; }
+  .quote { max-width: 720px; padding: 38px 42px; border-radius: var(--r); }
+  .quote + .quote { margin-top: 26px; }
+  .quote:nth-child(even) { margin-left: auto; }
+  .qm { font-family: Poppins; font-size: 46px; line-height: 0; color: var(--sky); height: 26px; display: block; }
+  blockquote { font-size: 17px; color: #fff; margin: 10px 0 22px; }
+  .who { display: flex; align-items: center; gap: 14px; }
+  .av { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--sky), var(--powder)); display: grid; place-items: center; font-weight: 700; color: var(--navy); font-family: Poppins; }
+  .who b { font-family: Poppins; font-size: 15px; display: block; color: #fff; }
+  .who span { font-size: 13px; color: rgba(255,255,255,0.7); }
+  @media (max-width: 900px) { .quote { max-width: none; } }
+</style>

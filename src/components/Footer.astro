@@ -1,0 +1,41 @@
+---
+import Logo from './Logo.astro';
+import { SITE, NAV } from '../consts';
+---
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <Logo light />
+        <p>{SITE.description}</p>
+      </div>
+      <div class="foot-col">
+        <h5>Explore</h5>
+        {NAV.filter((n) => n.href !== '#contact').map((n) => <a href={n.href}>{n.label}</a>)}
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href={SITE.phoneHref}>{SITE.phone}</a>
+        <a href={SITE.url}>{SITE.domain}</a>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <span class="loc">{SITE.location}</span>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
+      <span>{SITE.domain}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer { position: relative; z-index: 1; background: var(--navy-deep); color: rgba(255,255,255,0.75); padding: 56px 0 30px; }
+  .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  footer :global(.logo) { margin-bottom: 14px; }
+  footer p { font-size: 14.5px; max-width: 320px; }
+  .foot-col h5 { font-family: Poppins; color: #fff; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+  .foot-col a, .foot-col .loc { display: block; font-size: 14.5px; margin-bottom: 10px; opacity: 0.8; }
+  .foot-col a:hover { opacity: 1; color: var(--sky); }
+  .foot-bottom { padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 13px; opacity: 0.7; }
+  @media (max-width: 900px) { .foot-grid { grid-template-columns: 1fr; } }
+</style>
