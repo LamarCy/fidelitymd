@@ -36,11 +36,53 @@ export const LOGO = {
 } as const;
 
 export const NAV = [
+  { label: 'Our Story', href: '#story' },
   { label: 'Community Services', href: '#services' },
   { label: 'Wellness Screener', href: '#screener' },
-  { label: 'Founders', href: '#founders' },
+  { label: 'Our Team', href: '#team' },
   { label: 'FAQs', href: '#faq' },
   { label: 'Contact', href: '#contact' },
+] as const;
+
+export const STORY = {
+  heading: 'Making healthcare simpler so people receive better care',
+  paragraphs: [
+    'Fidelity Healthcare Group was founded on a simple but powerful idea: when healthcare is easier to access and easier to deliver, everyone benefits.',
+    'Founder Qaran Glenn recognized that physicians and providers too often spent their time navigating operational challenges instead of focusing on patients. With a background in business and operations, he set out to remove those barriers — improving systems, streamlining processes, and creating a better experience for providers and the people they serve.',
+    'What began as a mission to help healthcare providers deliver better patient care has grown into a broader commitment: helping schools support the whole student through proactive physical and mental wellness solutions.',
+    'Our services have evolved, but our philosophy has stayed the same.',
+  ],
+  motto: 'Ease of Access. Ease of Service. Better Outcomes.',
+  closing: 'Remove barriers. Simplify care. Improve lives.',
+} as const;
+
+export const PHILOSOPHY = [
+  {
+    title: 'Ease of Access',
+    body: 'Healthcare should be accessible, convenient, and available when and where people need it most.',
+  },
+  {
+    title: 'Ease of Service',
+    body: 'We design solutions that simplify processes, reduce administrative burden, and let professionals focus on serving people.',
+  },
+  {
+    title: 'Better Outcomes',
+    body: 'When barriers are removed and care becomes proactive, individuals, organizations, and communities achieve better outcomes.',
+  },
+] as const;
+
+export const MISSION =
+  'Helping schools care for the whole student through proactive physical and mental wellness solutions that are simple to implement, easy to access, and designed to create meaningful outcomes.';
+
+export const VISION =
+  "To become the nation's trusted partner in Whole Student Health — empowering schools to create healthier students, stronger communities, and brighter futures.";
+
+export const VALUES = [
+  { title: 'Compassion', body: 'People are at the center of every decision we make.' },
+  { title: 'Partnership', body: 'We work alongside our clients as trusted advisors — not just service providers.' },
+  { title: 'Innovation', body: 'We embrace practical solutions that improve lives through smarter systems and meaningful data.' },
+  { title: 'Integrity', body: 'We earn trust through transparency, professionalism, and consistent follow-through.' },
+  { title: 'Excellence', body: 'We strive to deliver exceptional experiences and measurable results in every partnership.' },
 ] as const;
 
 export const SERVICES = [
@@ -85,18 +127,28 @@ export const SCREENER_FEATURES = [
   },
 ] as const;
 
-export const FOUNDERS = [
+export const TEAM = [
   {
-    name: 'Adriana Glen',
-    role: 'Co-Founder',
-    bio: 'Short founder bio placeholder — background, mission, and what drives their work in student health.',
-    img: 'founders/AdrianaGlen_FidelityHeadshot.png',
+    name: 'Qaran Glenn',
+    role: 'Founder',
+    img: 'founders/QaranGlen_FidelityHeadshot.png',
+    memorial: true,
+    bio: [
+      'Qaran Glenn founded Fidelity Healthcare Group with a vision of helping healthcare organizations operate more effectively, so clinicians could devote more of their time and energy to patient care.',
+      'He understood that exceptional healthcare depends on more than clinical expertise — it also requires thoughtful systems, efficient operations, and a commitment to making care easier for everyone involved. His passion for service, innovation, and meaningful relationships shaped the culture of Fidelity and established the values that continue to define the company today.',
+      'Although Qaran is no longer with us, his vision continues to inspire everything we do. His legacy lives on through every partnership we build, every school we support, and every student whose life is positively impacted.',
+    ],
   },
   {
-    name: 'Qaran Glen',
-    role: 'Co-Founder',
-    bio: 'Short founder bio placeholder — background, mission, and what drives their work in student health.',
-    img: 'founders/QaranGlen_FidelityHeadshot.png',
+    name: 'Adriana Glenn',
+    role: 'Managing Director',
+    img: 'founders/AdrianaGlen_FidelityHeadshot.png',
+    memorial: false,
+    bio: [
+      "Adriana Glenn joined Fidelity Healthcare Group after its founding and played a significant role in growing and evolving the company into what it is today. With more than twenty years of experience in healthcare leadership, operations, market research, strategic planning, and business consulting, she brings a unique combination of analytical thinking and compassionate leadership to Fidelity's mission.",
+      "Today she leads the company's strategic vision, expanding Fidelity's work beyond traditional healthcare services to include innovative partnerships with schools and community organizations. Under her leadership, Fidelity is helping schools embrace a more proactive approach to student wellness — supporting both physical and mental health through practical, scalable programs.",
+      'She believes every student deserves the opportunity to thrive — and every school deserves a trusted partner who makes supporting student wellness simpler, more effective, and more meaningful.',
+    ],
   },
 ] as const;
 

@@ -1,0 +1,40 @@
+---
+import { VALUES } from '../consts';
+---
+<section class="sec values" id="values">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What Guides Us</span>
+      <h2>Our Values</h2>
+    </div>
+    <div class="val-grid">
+      {VALUES.map((v, i) => (
+        <div class="val">
+          <span class="num">0{i + 1}</span>
+          <h3>{v.title}</h3>
+          <p>{v.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .val-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+  .val {
+    padding: 28px 22px; border-radius: var(--r);
+    background: rgba(255,255,255,0.34);
+    -webkit-backdrop-filter: blur(var(--fog-blur)) saturate(135%);
+    backdrop-filter: blur(var(--fog-blur)) saturate(135%);
+    border: 1px solid rgba(255,255,255,0.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 14px 40px -26px rgba(8,27,52,0.22);
+    transition: transform 0.3s ease;
+  }
+  .val:hover { transform: translateY(-5px); }
+  .num { font-family: Poppins; font-weight: 700; font-size: 14px; color: var(--blue); letter-spacing: 0.05em; }
+  .val h3 { font-size: 18px; color: var(--navy); margin: 10px 0 8px; }
+  .val p { color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 1000px) { .val-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .val-grid { grid-template-columns: 1fr; } }
+</style>
