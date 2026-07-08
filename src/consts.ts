@@ -87,14 +87,16 @@ export const SCREENER_FEATURES = [
 
 export const FOUNDERS = [
   {
-    name: 'Founder Name',
-    role: 'Co-Founder & Title',
+    name: 'Adriana Glen',
+    role: 'Co-Founder',
     bio: 'Short founder bio placeholder — background, mission, and what drives their work in student health.',
+    img: 'founders/AdrianaGlen_FidelityHeadshot.png',
   },
   {
-    name: 'Founder Name',
-    role: 'Co-Founder & Title',
+    name: 'Qaran Glen',
+    role: 'Co-Founder',
     bio: 'Short founder bio placeholder — background, mission, and what drives their work in student health.',
+    img: 'founders/QaranGlen_FidelityHeadshot.png',
   },
 ] as const;
 
