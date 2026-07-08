@@ -101,11 +101,11 @@ img { max-width: 100%; display: block; }
 .btn-glass:hover { transform: translateY(-2px); }
 /* diagonal light sweep — soft & slow */
 .btn-glass::before {
-  content: ""; position: absolute; top: -20%; left: -70%;
+  content: ""; position: absolute; top: -20%; left: 0;
   width: 55%; height: 140%;
   background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent);
-  transform: skewX(-18deg); filter: blur(3px);
-  animation: sheen 9s ease-in-out infinite;
+  transform: translateX(-160%) skewX(-18deg); filter: blur(3px);
+  animation: sheen 9s ease-in-out infinite; will-change: transform;
   pointer-events: none;
 }
 /* warm lens flare orb — softened, drifting along a gentle S-curve */
@@ -114,19 +114,18 @@ img { max-width: 100%; display: block; }
   top: -52px; left: 0;
   background: radial-gradient(circle, rgba(255, 231, 201, 0.5) 0%, rgba(251, 146, 110, 0.22) 42%, transparent 72%);
   filter: blur(14px); mix-blend-mode: screen; opacity: 0.55;
-  animation: flareS 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: flareS 14s cubic-bezier(0.45, 0, 0.55, 1) infinite; will-change: transform, opacity;
   pointer-events: none;
 }
-/* S-shaped travel path: the orb weaves up-down-up-down as it crosses,
-   fading in and out at the edges so the loop is seamless */
+/* S-shaped travel path (transform-only): weaves up-down-up-down as it crosses */
 @keyframes flareS {
-  0%   { left: -12%; top: -30px; opacity: 0; }
+  0%   { transform: translateX(-40%) translateY(2px);  opacity: 0; }
   12%  { opacity: 0.5; }
-  25%  { top: -60px; }
-  50%  { left: 42%; top: -12px; opacity: 0.6; }
-  75%  { top: -60px; }
+  25%  { transform: translateX(60%) translateY(-8px); }
+  50%  { transform: translateX(150%) translateY(8px);  opacity: 0.6; }
+  75%  { transform: translateX(250%) translateY(-8px); }
   88%  { opacity: 0.5; }
-  100% { left: 96%; top: -30px; opacity: 0; }
+  100% { transform: translateX(360%) translateY(2px);  opacity: 0; }
 }
 .btn-glass .btn-label { position: relative; z-index: 2; }
 
@@ -145,48 +144,43 @@ img { max-width: 100%; display: block; }
 }
 .blob {
   position: absolute; border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
-  filter: blur(60px); opacity: 0.55; will-change: transform, border-radius;
-  mix-blend-mode: normal;
+  filter: blur(46px); opacity: 0.55; will-change: transform;
+  transform: translateZ(0); backface-visibility: hidden;
 }
+/* rotating an asymmetric shape reads as "morphing" without repainting radius */
 .blob-1 { width: 620px; height: 620px; top: -180px; left: -140px;
   background: radial-gradient(circle at 35% 35%, var(--blue), transparent 70%);
-  animation: morph1 24s ease-in-out infinite, drift1 34s ease-in-out infinite; }
+  animation: floatA 34s ease-in-out infinite; }
 .blob-2 { width: 560px; height: 560px; top: 22%; right: -160px;
   background: radial-gradient(circle at 60% 40%, var(--sky), transparent 70%);
-  animation: morph2 28s ease-in-out infinite, drift2 30s ease-in-out infinite; opacity: 0.5; }
+  animation: floatB 30s ease-in-out infinite; opacity: 0.5; }
 .blob-3 { width: 520px; height: 520px; bottom: -160px; left: 20%;
   background: radial-gradient(circle at 50% 50%, var(--powder), transparent 72%);
-  animation: morph1 32s ease-in-out infinite reverse, drift3 38s ease-in-out infinite; opacity: 0.6; }
+  animation: floatC 38s ease-in-out infinite; opacity: 0.6; }
 .blob-4 { width: 360px; height: 360px; top: 55%; left: 8%;
   background: radial-gradient(circle at 50% 50%, rgba(251, 122, 90, 0.55), transparent 70%);
-  animation: morph2 26s ease-in-out infinite, drift1 42s ease-in-out infinite reverse; opacity: 0.4; }
-/* a bright travelling core = "light moving through the bubbles" */
+  animation: floatD 42s ease-in-out infinite; opacity: 0.4; }
+/* a bright travelling core = "light moving through the bubbles" (transform-only) */
 .blob::after {
   content: ""; position: absolute; width: 30%; height: 30%; border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent 70%);
-  top: 20%; left: 20%; animation: coreWander 12s ease-in-out infinite alternate;
+  top: 15%; left: 15%; will-change: transform, opacity;
+  animation: coreWander 12s ease-in-out infinite alternate;
 }
 
-@keyframes morph1 {
-  0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
-  33% { border-radius: 63% 37% 41% 59% / 56% 63% 37% 44%; }
-  66% { border-radius: 37% 63% 56% 44% / 63% 41% 59% 37%; }
-}
-@keyframes morph2 {
-  0%, 100% { border-radius: 58% 42% 37% 63% / 44% 56% 44% 56%; }
-  50% { border-radius: 41% 59% 63% 37% / 59% 37% 63% 41%; }
-}
-@keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(70px, 50px) scale(1.08); } }
-@keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px, 70px) scale(1.05); } }
-@keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px, -60px) scale(1.1); } }
-@keyframes coreWander { 0% { top: 15%; left: 18%; opacity: 0.7; } 100% { top: 55%; left: 55%; opacity: 0.35; } }
+@keyframes floatA { 0%,100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); } 50% { transform: translate3d(64px,44px,0) rotate(9deg) scale(1.08); } }
+@keyframes floatB { 0%,100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); } 50% { transform: translate3d(-56px,64px,0) rotate(-7deg) scale(1.05); } }
+@keyframes floatC { 0%,100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); } 50% { transform: translate3d(48px,-56px,0) rotate(7deg) scale(1.1); } }
+@keyframes floatD { 0%,100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); } 50% { transform: translate3d(-44px,-32px,0) rotate(-9deg) scale(1.06); } }
+@keyframes coreWander { 0% { transform: translate(0,0); opacity: 0.65; } 100% { transform: translate(120%,150%); opacity: 0.3; } }
 
 @keyframes sheen {
-  0% { left: -70%; } 55% { left: 130%; } 100% { left: 130%; }
+  0% { transform: translateX(-160%) skewX(-18deg); }
+  55%, 100% { transform: translateX(320%) skewX(-18deg); }
 }
 @keyframes flareDrift {
-  0% { left: 4%; top: -46px; opacity: 0.7; }
-  100% { left: 70%; top: -30px; opacity: 0.95; }
+  0% { transform: translate(0,0); opacity: 0.65; }
+  100% { transform: translate(60px, 22px); opacity: 0.95; }
 }
 
 /* ---------- Glass cards & moving light ---------- */
@@ -200,13 +194,16 @@ img { max-width: 100%; display: block; }
 }
 /* slow specular sweep travelling across the glass */
 .glass::before {
-  content: ""; position: absolute; top: -60%; left: -40%;
-  width: 60%; height: 220%;
+  content: ""; position: absolute; top: -60%; left: 0;
+  width: 45%; height: 220%;
   background: linear-gradient(105deg, transparent, rgba(255,255,255,0.18), transparent);
-  transform: skewX(-16deg);
+  transform: translateX(-200%) skewX(-16deg); will-change: transform;
   animation: glassSweep 9s ease-in-out infinite; pointer-events: none;
 }
-@keyframes glassSweep { 0% { left: -50%; } 60% { left: 140%; } 100% { left: 140%; } }
+@keyframes glassSweep {
+  0% { transform: translateX(-200%) skewX(-16deg); }
+  60%, 100% { transform: translateX(420%) skewX(-16deg); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .blob, .blob::after, .btn-glass::before, .btn-glass::after, .glass::before { animation: none !important; }

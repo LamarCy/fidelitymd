@@ -89,8 +89,16 @@ import { NAV } from '../consts';
 
     btn?.addEventListener('click', () => { nav.classList.toggle('open'); setIcon(); });
     links.forEach((a) => a.addEventListener('click', () => { nav.classList.remove('open'); setIcon(); }));
-    window.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync);
+
+    // rAF-throttled so scroll fires at most once per frame
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { sync(); ticking = false; });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
     sync();
   }
 </script>

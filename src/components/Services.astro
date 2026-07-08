@@ -48,9 +48,10 @@ const ICONS: Record<string, string> = {
   .svc.blue { background: radial-gradient(560px 300px at 88% -10%, rgba(63,134,238,0.26), transparent 62%), rgba(255,255,255,0.32); }
   /* travelling light across the card */
   .svc::after {
-    content: ""; position: absolute; top: -60%; left: -40%; width: 55%; height: 220%;
+    content: ""; position: absolute; top: -60%; left: 0; width: 45%; height: 220%;
     background: linear-gradient(105deg, transparent, rgba(255,255,255,0.4), transparent);
-    transform: skewX(-16deg); animation: glassSweep 11s ease-in-out infinite; pointer-events: none;
+    transform: translateX(-200%) skewX(-16deg); will-change: transform;
+    animation: glassSweep 11s ease-in-out infinite; pointer-events: none;
   }
   .svc.blue::after { animation-delay: 3s; }
   .ic { width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center; background: rgba(63,134,238,0.12); border: 1px solid rgba(63,134,238,0.22); margin-bottom: 22px; position: relative; z-index: 1; }
