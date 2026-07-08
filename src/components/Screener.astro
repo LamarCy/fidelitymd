@@ -6,6 +6,7 @@ const FEATURE_ICONS = [
   '<path d="M4 19V5m0 14h16M8 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
   '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <section class="sec screener" id="screener">
   <div class="wrap screener-inner">
@@ -23,8 +24,8 @@ const FEATURE_ICONS = [
       </div>
     </div>
     <div class="shot-stack">
-      <div class="shot desktop"><div class="lbl">Screener dashboard<br /><small>screenshot placeholder</small></div></div>
-      <div class="shot phone"><div class="lbl">Mobile<br />screener<br /><small>screenshot</small></div></div>
+      <img class="shot-desktop" src={`${base}screener/dashboardscreener.png`} alt="Fidelity Wellness Screener dashboard" />
+      <img class="shot-phone" src={`${base}screener/mobilescreener.png`} alt="Fidelity Wellness Screener on a mobile phone" />
     </div>
   </div>
 </section>
@@ -40,10 +41,12 @@ const FEATURE_ICONS = [
   .feat h4 { font-family: Poppins; font-size: 16.5px; margin-bottom: 2px; color: var(--navy); }
   .feat p { color: var(--muted); font-size: 14.5px; }
 
-  .shot-stack { position: relative; min-height: 420px; }
-  .shot { position: absolute; border-radius: 18px; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 30px 60px -25px rgba(8,27,52,0.5); overflow: hidden; }
-  .shot.desktop { width: 78%; height: 300px; left: 0; top: 20px; background: linear-gradient(150deg, var(--navy-2), var(--blue-2)); }
-  .shot.phone { width: 150px; height: 310px; right: 4%; top: 70px; border-radius: 26px; background: linear-gradient(150deg, var(--blue), var(--navy)); }
-  .shot .lbl { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: rgba(255,255,255,0.6); font-size: 13px; background: radial-gradient(400px 200px at 30% 0%, rgba(143,194,245,0.4), transparent); }
-  @media (max-width: 900px) { .screener-inner { grid-template-columns: 1fr; } .shot-stack { min-height: 360px; } }
+  /* device mockups (already framed on transparent backgrounds) */
+  .shot-stack { position: relative; display: flex; align-items: center; justify-content: center; padding: 10px 40px 30px 0; }
+  .shot-desktop { width: 100%; height: auto; filter: drop-shadow(0 30px 45px rgba(8,27,52,0.28)); }
+  .shot-phone { position: absolute; right: 0; bottom: 0; width: 26%; max-width: 150px; height: auto; filter: drop-shadow(0 22px 40px rgba(8,27,52,0.4)); }
+  @media (max-width: 900px) {
+    .screener-inner { grid-template-columns: 1fr; }
+    .shot-stack { padding: 10px 30px 20px 0; }
+  }
 </style>
