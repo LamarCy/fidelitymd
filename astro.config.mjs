@@ -2,12 +2,8 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
-// For GitHub Pages project site: https://lamarcy.github.io/fidelitymd/
-// `base` is only applied in production builds so local `npm run dev` stays at "/".
-// If you later attach the custom domain fidelitymd.com, set base to '/' always.
-const isProd = process.env.NODE_ENV === 'production';
-
+// Deployed on Netlify at the root of the custom domain fidelitymd.com,
+// so the site serves from "/" (no base path).
 export default defineConfig({
-  site: 'https://lamarcy.github.io',
-  base: isProd ? '/fidelitymd/' : '/',
+  site: 'https://fidelitymd.com',
 });
