@@ -7,16 +7,69 @@ import { SITE } from '../consts';
       <span class="eyebrow on-dark">Let's Talk</span>
       <h2>Bring Fidelity to your school</h2>
       <p>
-        Ready to support your students' bodies and minds? Contact us for more
-        information about sports physicals and our mental health &amp; wellness
-        framework.
+        Ready to support your students' bodies and minds? Send us a note or give
+        us a call — we'll follow up with options for your school or district.
       </p>
       <a href={SITE.phoneHref} class="bigphone">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         {SITE.phone}
       </a>
-      <div class="cta-row">
-        <a href={`mailto:${SITE.email}`} class="btn btn-glass"><span class="btn-label">Contact us for more information →</span></a>
+
+      <div class="form-wrap">
+        <!-- Netlify Form: detected at deploy time; submissions appear in the
+             Netlify dashboard (Forms). Honeypot "bot-field" blocks spam. -->
+        <form
+          name="contact"
+          method="POST"
+          action="/thank-you"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="contact-form"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+
+          <div class="row">
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@school.org" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="cf-role">I'm a…</label>
+              <select id="cf-role" name="role">
+                <option value="Parent / Guardian">Parent / Guardian</option>
+                <option value="School Counselor">School Counselor</option>
+                <option value="District / Administrator">District / Administrator</option>
+                <option value="Coach / Athletic Dept.">Coach / Athletic Dept.</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="cf-org">School / District</label>
+              <input id="cf-org" name="school" type="text" autocomplete="organization" placeholder="School or district name" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cf-msg">How can we help?</label>
+            <textarea id="cf-msg" name="message" rows="4" placeholder="Tell us a little about what you're looking for…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-glass submit"><span class="btn-label">Contact us for more information →</span></button>
+        </form>
+
+        <div class="form-sent" hidden>
+          <div class="check">✓</div>
+          <h3>Thank you — message received.</h3>
+          <p>We'll be in touch soon. Need something sooner? Call <a href={SITE.phoneHref}>{SITE.phone}</a>.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +78,7 @@ import { SITE } from '../consts';
 <style>
   .contact-card {
     position: relative; overflow: hidden; max-width: 920px; margin: 0 auto;
-    border-radius: 30px; padding: 60px; color: #fff; text-align: center;
+    border-radius: 30px; padding: 56px; color: #fff; text-align: center;
     background:
       radial-gradient(700px 320px at 88% -20%, rgba(255,224,186,0.4), transparent 60%),
       linear-gradient(120deg, var(--navy-deep) 0%, var(--navy-2) 48%, var(--blue) 100%);
@@ -38,6 +91,71 @@ import { SITE } from '../consts';
   }
   .contact-card > * { position: relative; z-index: 1; }
   h2 { font-size: clamp(28px, 3.4vw, 40px); margin-bottom: 14px; }
-  .contact-card p { color: rgba(255,255,255,0.86); max-width: 520px; margin: 0 auto 26px; font-size: 17px; }
-  .cta-row { margin-top: 24px; display: flex; justify-content: center; }
+  .contact-card p { color: rgba(255,255,255,0.86); max-width: 520px; margin: 0 auto 22px; font-size: 17px; }
+
+  .form-wrap { position: relative; z-index: 1; max-width: 560px; margin: 28px auto 0; text-align: left; }
+  .contact-form { display: grid; gap: 16px; }
+  .contact-form[hidden] { display: none; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.02em; }
+  .field input, .field select, .field textarea {
+    font-family: inherit; font-size: 15px; color: #fff;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.24);
+    border-radius: 12px; padding: 13px 15px; width: 100%;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .field textarea { resize: vertical; min-height: 96px; }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.55); }
+  .field select { appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+  .field select option { color: #10233d; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--sky); background: rgba(255,255,255,0.16);
+  }
+  .submit { width: 100%; justify-content: center; margin-top: 4px; }
+  /* honeypot: hidden from humans */
+  .hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+  .form-sent { text-align: center; padding: 30px 10px; }
+  .form-sent .check {
+    width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 16px;
+    display: grid; place-items: center; font-size: 28px; color: #04231f;
+    background: linear-gradient(135deg, var(--sky), var(--powder));
+  }
+  .form-sent h3 { font-size: 22px; margin-bottom: 8px; }
+  .form-sent p { color: rgba(255,255,255,0.86); }
+  .form-sent a { color: var(--sky); font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .contact-card { padding: 40px 24px; }
+    .row { grid-template-columns: 1fr; }
+  }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
+  if (form) {
+    const wrap = form.closest('.form-wrap');
+    const sent = wrap?.querySelector<HTMLElement>('.form-sent');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; }
+      try {
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form) as any).toString(),
+        });
+        form.hidden = true;
+        if (sent) sent.hidden = false;
+      } catch {
+        // network failed — fall back to a normal submit (Netlify will handle it)
+        form.submit();
+      }
+    });
+  }
+</script>
